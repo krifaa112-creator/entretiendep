@@ -806,7 +806,7 @@ class LogoHeader extends StatelessWidget {
             border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
           ),
           child: const Text(
-            'V 0.24',
+            'V 0.25',
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,
@@ -3061,9 +3061,14 @@ double _parseVat(String value) =>
 String _formatEuro(double value) =>
     '${value.toStringAsFixed(2).replaceAll('.', ',')} EUR';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final state = AppState.of(context);
@@ -3132,16 +3137,29 @@ class SettingsScreen extends StatelessWidget {
                 label: 'Importer logo PNG transparent',
                 onTap: () async {
                   final logo = await pickTransparentPngLogo();
-                  if (logo == null) {
+                  if (!context.mounted) {
                     return;
                   }
-                  company.logoPngBase64 = logo;
+                  if (logo == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Logo non importe : choisis un vrai fichier PNG, idealement depuis Fichiers sur iPhone.',
+                        ),
+                      ),
+                    );
+                    return;
+                  }
+                  setState(() => company.logoPngBase64 = logo);
                   state.updateCompany();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Logo PNG importe.')),
+                  );
                 },
               ),
               const SizedBox(height: 10),
               const Text(
-                'Format accepte : PNG avec fond transparent. C est le format ideal pour garder un logo net dans le PDF et sur tous les fonds, sans rectangle blanc ni deformation.',
+                'Format accepte : PNG avec fond transparent. Sur iPhone, importe le logo depuis Fichiers si possible. Une image choisie depuis Photos peut etre convertie en JPG et sera refusee.',
                 style: TextStyle(
                     color: Color(0xFF607080), fontWeight: FontWeight.w700),
               ),
@@ -3524,7 +3542,7 @@ class AppPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(999),
                     ),
                     child: const Text(
-                      'V 0.24',
+                      'V 0.25',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
