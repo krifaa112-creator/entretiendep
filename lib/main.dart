@@ -53,7 +53,7 @@ class _AnimatedAppFrameState extends State<AnimatedAppFrame>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 7),
-    )..repeat();
+    );
   }
 
   @override
@@ -68,54 +68,39 @@ class _AnimatedAppFrameState extends State<AnimatedAppFrame>
       color: const Color(0xFF02090C),
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            final angle = _controller.value * 6.28318;
-            return Container(
-              padding: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(28),
-                gradient: SweepGradient(
-                  center: Alignment.center,
-                  startAngle: angle,
-                  endAngle: angle + 6.28318,
-                  colors: const [
-                    Color(0xFF44D7B6),
-                    Color(0xFF6EA8FF),
-                    Color(0xFFFFB020),
-                    Color(0xFF44D7B6),
-                  ],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF44D7B6).withValues(alpha: 0.28),
-                    blurRadius: 22,
-                    offset: const Offset(0, 10),
-                  ),
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.35),
-                    blurRadius: 18,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
+        child: Container(
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF4FE3CC),
+                Color(0xFF17212E),
+                Color(0xFF243247),
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.45),
+                blurRadius: 22,
+                offset: const Offset(0, 10),
               ),
-              child: Container(
-                padding: const EdgeInsets.all(1),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  border:
-                      Border.all(color: Colors.white.withValues(alpha: 0.16)),
-                  color: const Color(0xFF071317),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: child,
-                ),
-              ),
-            );
-          },
-          child: widget.child,
+            ],
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(1),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+              color: const Color(0xFF050A0F),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: widget.child,
+            ),
+          ),
         ),
       ),
     );
@@ -141,7 +126,7 @@ class _AnimatedContentFrameState extends State<AnimatedContentFrame>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 7),
-    )..repeat();
+    );
   }
 
   @override
@@ -152,57 +137,43 @@ class _AnimatedContentFrameState extends State<AnimatedContentFrame>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final angle = _controller.value * 6.28318;
-        return Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(3),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(28),
-            gradient: SweepGradient(
-              center: Alignment.center,
-              startAngle: angle,
-              endAngle: angle + 6.28318,
-              colors: const [
-                Color(0xFF44D7B6),
-                Color(0xFF6EA8FF),
-                Color(0xFFFFB020),
-                Color(0xFF44D7B6),
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF44D7B6).withValues(alpha: 0.22),
-                blurRadius: 18,
-                offset: const Offset(0, 8),
-              ),
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.22),
-                blurRadius: 14,
-                offset: const Offset(0, 4),
-              ),
-            ],
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF45556A),
+            Color(0xFF17212E),
+            Color(0xFF0B1118),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.36),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
           ),
-          child: Container(
-            padding: const EdgeInsets.all(1),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.16)),
-              color: Colors.white.withValues(alpha: 0.04),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: Padding(
-                padding: const EdgeInsets.all(14),
-                child: child,
-              ),
-            ),
+        ],
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(1),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+          color: const Color(0xFF0A1017),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: widget.child,
           ),
-        );
-      },
-      child: widget.child,
+        ),
+      ),
     );
   }
 }
@@ -612,7 +583,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
-      backgroundColor: const Color(0xFF071317),
+      backgroundColor: const Color(0xFF050A0F),
       body: Stack(
         children: [
           const Positioned.fill(child: HomeBackdrop()),
@@ -702,43 +673,17 @@ class HomeBackdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
+    return const DecoratedBox(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF071317),
-            Color(0xFF0F2B2E),
-            Color(0xFF13233F),
+            Color(0xFF050A0F),
+            Color(0xFF0B1118),
+            Color(0xFF111827),
           ],
         ),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            top: -100,
-            right: -90,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF44D7B6).withValues(alpha: 0.22),
-              ),
-              child: const SizedBox(width: 260, height: 260),
-            ),
-          ),
-          Positioned(
-            bottom: 80,
-            left: -120,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFFFFB020).withValues(alpha: 0.16),
-              ),
-              child: const SizedBox(width: 280, height: 280),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -806,7 +751,7 @@ class LogoHeader extends StatelessWidget {
             border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
           ),
           child: const Text(
-            'V 0.25',
+            'V 0.26',
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,
@@ -966,13 +911,22 @@ class HomeActionCard extends StatelessWidget {
                 ),
                 child: Icon(icon, color: accent, size: 28),
               ),
-              const SizedBox(height: 34),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w900,
+              const SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                height: 31,
+                child: FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    title,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 5),
@@ -3542,7 +3496,7 @@ class AppPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(999),
                     ),
                     child: const Text(
-                      'V 0.25',
+                      'V 0.26',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
